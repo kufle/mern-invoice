@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import "dotenv/config";
 import mongoose from "mongoose";
 import validator from "validator";
-import { USER } from "../constant.js";
+import { USER } from "../constant/index.js";
 
 const {Schema}  = mongoose;
 
@@ -77,11 +77,16 @@ const userSchema = new Schema({
     businessName: String,
     phoneNumber: {
         type: String,
+        required: false,
         default: "+62123456789",
-        validate: [
-            validator.isMobilePhone,
-            "Your mobile phone number must begin with a '+', followed by your  country code then actual number e.g +254123456789",
-        ],
+        validate: {
+            validator: function (value) {
+                if (value != "") {
+                    return validator.isMobilePhone;
+                }
+            },
+            message: "Your mobile phone number must begin with a '+', followed by your  country code then actual number e.g +254123456789",
+        },
     },
     address: String,
     city: String,
