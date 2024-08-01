@@ -51,7 +51,7 @@ const verifyUserEmail = asyncHandler(async (req, res) => {
             "./emails/template/welcome.handlebars"
         );
 
-        res.redirect("/auth/verify");
+        res.redirect("/auth/verify"); //<-- ini link front end
     }
 });
 
