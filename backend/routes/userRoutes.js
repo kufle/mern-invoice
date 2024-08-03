@@ -5,6 +5,7 @@ import updateUserProfile from '../controllers/user/updateUserProfileController.j
 import deleteMyAccount from '../controllers/user/deleteMyAccountController.js';
 import role from '../middleware/roleMiddleware.js';
 import getAllUserAccounts from '../controllers/user/getAllUserAccountsController.js';
+import deleteUserAccount from '../controllers/user/deleteUserAccountController.js';
 
 const router = express.Router();
 
@@ -14,8 +15,13 @@ router
   .put(checkAuth, updateUserProfile)
   .delete(checkAuth, deleteMyAccount);
 
+// ADMIN ONLY
 router
   .route('/all')
   .get(checkAuth, role.checkRole(role.ROLES.Admin), getAllUserAccounts);
+// ADMIN ONLY
+router
+  .route('/:id')
+  .delete(checkAuth, role.checkRole(role.ROLES.Admin), deleteUserAccount);
 
 export default router;
