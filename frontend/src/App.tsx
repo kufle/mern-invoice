@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage.tsx"
 import NotFound from "./components/NotFound"
 import Footer from "./components/Footer"
 import "react-toastify/ReactToastify.min.css"
+import RegisterForm from "./features/auth/forms/RegisterForm.tsx"
 
 function App() {
   useTitle("MERN Invoice - Home")
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
+          <Route path="register" element={<RegisterForm />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
