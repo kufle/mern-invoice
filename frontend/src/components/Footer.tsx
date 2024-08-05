@@ -1,10 +1,10 @@
 import {Typography, Link, Box, CssBaseline} from "@mui/material"
 import { FaMoneyBillWave } from "react-icons/fa";
 
-const CopyRight = () => {
+const Copyright = () => {
     return (
         <Typography variant='body2' align='center' sx={{color: "#FFFFFF"}}>
-            {"Copyright &copy;"}
+            {"Copyright © "}
             <Link href="#" color='inherit'>
                 MERN Invoice
             </Link>
@@ -15,24 +15,34 @@ const CopyRight = () => {
 
 function Footer() {
   return (
-    <Box sx={{position: 'fixed', bottom: 0, width: '100%'}}>
+    <Box
+        sx={{
+            bgcolor: "#000000",
+            marginTop: "auto",
+        }}
+        // className="footer"
+    >
         <CssBaseline />
-        <Box component="footer" sx={{
-            py: 1,
-            px: 1,
-            mt: "auto",
-            bgColor: "#000000",
-        }}>
+
+        <Box
+            component="footer"
+            sx={{
+                py: 1,
+                px: 1,
+                mt: "auto",
+                bgColor: "#000000",
+            }}
+        >
             <Typography
                 variant="subtitle1"
                 align="center"
                 component="p"
                 sx={{ color: "#07f011" }}
-				>
-                    <FaMoneyBillWave /> Because Money is as important as oxygen!{" "}
-                    <FaMoneyBillWave />
+            >
+                <FaMoneyBillWave /> Because Money is as important as oxygen!{" "}
+                <FaMoneyBillWave />
             </Typography>
-            <CopyRight />
+            <Copyright />
         </Box>
     </Box>
   )
