@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 interface AuthButtonAnimationProps {
     children: ReactNode;
-    type: string;
+    type?: string;
   }
 
 export default function AuthButtonAnimation({children, type}: AuthButtonAnimationProps) {
