@@ -4,12 +4,13 @@ import { useRegisterUserMutation } from '../authApiSlice';
 import { toast } from 'react-toastify';
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import {Link as RouterLink} from 'react-router-dom';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import Spinner from '../../../components/Spinner';
 import { Box, Button, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, Link, OutlinedInput, Stack, Typography } from '@mui/material';
 import AuthButtonAnimation from '../../../animations/AuthButtonAnimation';
 import { useEffect, useState } from 'react';
 import { strengthColor, strengthIndicator } from '../../../utils/password-strength';
+import useTitle from '../../../hooks/useTitle';
 
 const USERNAME_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 
@@ -29,11 +30,12 @@ interface ILevelPassword {
 }
 
 function RegisterForm() {
+  useTitle("Sign Up - MERN Invoice");
+  const navigate = useNavigate();
+  
   const [level, setLevel] = useState<ILevelPassword | undefined>(undefined);
   const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  const [registerUser, { isLoading }] = useRegisterUserMutation();
 
   const handleShowHidePassword = () => {
 		setShowPassword(!showPassword);
@@ -52,9 +54,19 @@ function RegisterForm() {
 		setLevel(strengthColor(temp));
 	};
 
+  const [registerUser, { isLoading, isSuccess, data }] = useRegisterUserMutation();
+
   // useEffect(() => {
 	// 	changePassword("");
 	// }, []);
+  useEffect(() => {
+		if (isSuccess) {
+			navigate("/");
+
+			const message = data?.message;
+			toast.success(message);
+		}
+	}, [data, isSuccess, navigate]);
 
   return (
     <>
