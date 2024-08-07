@@ -11,6 +11,7 @@ import Footer from "./components/Footer"
 import "react-toastify/ReactToastify.min.css"
 import RegisterPage from "./features/auth/pages/RegisterPage.tsx"
 import VerifiedPage from "./features/auth/pages/VerifiedPage.tsx"
+import LoginPage from "./features/auth/pages/LoginPage.tsx"
 
 function App() {
   useTitle("MERN Invoice - Home")
@@ -22,6 +23,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="auth/verify" element={<VerifiedPage />} />
+          <Route path="login" element={<LoginPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

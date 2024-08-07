@@ -117,11 +117,11 @@ function RegisterForm() {
         }}
       >
         {({errors,
-					handleBlur,
-					handleChange,
-					handleSubmit,
-					touched,
-					values,
+          handleBlur,
+          handleChange,
+          handleSubmit,
+          touched,
+          values,
           isSubmitting}: FormikProps<ISignUpForm>) => (
           <form noValidate autoComplete="off" onSubmit={handleSubmit}>
             {isLoading ? (
