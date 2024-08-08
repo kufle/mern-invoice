@@ -12,12 +12,17 @@ import "react-toastify/ReactToastify.min.css"
 import RegisterPage from "./features/auth/pages/RegisterPage.tsx"
 import VerifiedPage from "./features/auth/pages/VerifiedPage.tsx"
 import LoginPage from "./features/auth/pages/LoginPage.tsx"
+import Navbar from "./components/Navbar/index.tsx"
+import { useSelector } from "react-redux"
+import { RootState } from "./app/store.ts"
 
 function App() {
   useTitle("MERN Invoice - Home")
+  const { user } = useSelector((state: RootState) => state.auth)
   return (
     <ThemeProvider theme={customTheme}>
       <CssBaseline />
+      {user && <Navbar />}
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
