@@ -15,6 +15,7 @@ import LoginPage from "./features/auth/pages/LoginPage.tsx"
 import Navbar from "./components/Navbar/index.tsx"
 import { useSelector } from "react-redux"
 import { RootState } from "./app/store.ts"
+import ResendEmailTokenPage from "./features/auth/pages/ResendEmailTokenPage.tsx"
 
 function App() {
   useTitle("MERN Invoice - Home")
@@ -29,6 +30,7 @@ function App() {
           <Route path="register" element={<RegisterPage />} />
           <Route path="auth/verify" element={<VerifiedPage />} />
           <Route path="login" element={<LoginPage />} />
+          <Route path="resend" element={<ResendEmailTokenPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
