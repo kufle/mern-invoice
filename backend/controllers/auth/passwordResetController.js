@@ -107,7 +107,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   if (!passwordResetToken) {
     res.status(400);
     throw new Error(
-      'Your token is either invalid or expired. Try resetting your password again'
+      'Your token is either invalid or expired. Try resetting your password again b'
     );
   }
 
@@ -137,7 +137,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   } else {
     res.status(400);
     throw new Error(
-      'Your token is either invalid or expired. Try resetting your password again'
+      'Your token is either invalid or expired. Try resetting your password again c'
     );
   }
 });
