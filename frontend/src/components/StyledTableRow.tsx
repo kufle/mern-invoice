@@ -1,9 +1,4 @@
 import { styled, TableRow } from "@mui/material";
-import { ReactNode } from "react";
-
-interface StyledTableRowProps {
-    children: ReactNode;
-}
 
 const TableRowStyled = styled(TableRow)(({ theme }) => ({
 	"&:nth-of-type(odd)": {
@@ -14,7 +9,7 @@ const TableRowStyled = styled(TableRow)(({ theme }) => ({
 	},
 }));
 
-function StyledTableRow({ children }: StyledTableRowProps) {
+function StyledTableRow({ children }: any) {
   return <TableRowStyled>{children}</TableRowStyled>;
 }
 

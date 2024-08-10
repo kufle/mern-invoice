@@ -1,4 +1,4 @@
-import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
+import { BaseQueryFn, createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../../app/store";
 import { logIn, logOut } from "../auth/authSlice";
 
@@ -7,19 +7,21 @@ const baseQuery = fetchBaseQuery({
   credentials: 'include',
   prepareHeaders: (headers, {getState}) => {
     const token = (getState() as RootState).auth.user?.accessToken;
-
+    const googleToken = (getState() as RootState).auth.googleToken;
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
+    } else if (googleToken) {
+      headers.set("authorization", `Bearer ${googleToken}`);
     }
 
     return headers;
   }
 });
 
-const baseQueryWithRefreshToken: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
-  const response = await baseQuery(args, api, extraOptions);
+const baseQueryWithRefreshToken: BaseQueryFn<any, any, any> = async (args, api, extraOptions) => {
+  const response = await baseQuery(args, api, extraOptions) as any;
 
-  if (response?.error?.status === 403) {
+  if (response?.error?.originalStatus === 403) {
     const refreshResponse = await baseQuery(
       '/auth/new_access_token',
       api,

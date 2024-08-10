@@ -1,9 +1,4 @@
-import { ReactNode } from 'react';
 import { styled, TableCell, tableCellClasses } from '@mui/material';
-
-interface StyledTableCellProps {
-    children: ReactNode;
-}
 
 const TableCellStyled = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
@@ -15,7 +10,7 @@ const TableCellStyled = styled(TableCell)(({ theme }) => ({
 	},
 }));
 
-function StyledTableCell({children}: StyledTableCellProps) {
+function StyledTableCell({children}: any) {
   return <TableCellStyled>{children}</TableCellStyled>;
 }
 

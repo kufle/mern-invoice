@@ -1,6 +1,9 @@
 import { useSelector } from "react-redux"
 import { decodeToken } from "react-jwt";
-import { selectCurrentUserToken } from "../features/auth/authSlice"
+import { 
+  selectCurrentUserToken, 
+  selectCurrentUserGoogleToken 
+} from "../features/auth/authSlice"
 
 interface DecodedToken {
   roles: string[]; // Atau tipe yang sesuai dengan struktur token Anda
@@ -9,6 +12,7 @@ interface DecodedToken {
 
 const useAuthUser = () => {
   const token = useSelector(selectCurrentUserToken);
+  const googleToken = useSelector(selectCurrentUserGoogleToken);
 
   let isAdmin = false;
 
@@ -25,8 +29,19 @@ const useAuthUser = () => {
       if (isAdmin) accessRight = "Admin";
 
       return {roles, isAdmin, accessRight};
+    } 
+  } else if (googleToken) {
+    const gDecodedToken = decodeToken<DecodedToken>(googleToken);
+
+    if (gDecodedToken) {
+      const { roles } = gDecodedToken;
+
+      isAdmin = roles.includes("Admin");
+
+      if (isAdmin) accessRight = "Admin";
+
+      return { roles, isAdmin, accessRight };
     }
-    
   }
 
   return {roles: [], isAdmin, accessRight};

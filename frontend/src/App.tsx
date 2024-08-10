@@ -18,6 +18,10 @@ import { RootState } from "./app/store.ts"
 import ResendEmailTokenPage from "./features/auth/pages/ResendEmailTokenPage.tsx"
 import PasswordResetRequestPage from "./features/auth/pages/PasswordResetRequestPage.tsx"
 import PasswordResetPage from "./features/auth/pages/PasswordResetPage.tsx"
+import AuthRequired from "./components/AuthRequired.tsx"
+import { ROLES } from "./config/roles.ts"
+import DashboardPage from "./pages/DashboardPage.tsx"
+import UserListPage from "./features/users/pages/UserListPage.tsx"
 
 function App() {
   useTitle("MERN Invoice - Home")
@@ -35,6 +39,15 @@ function App() {
           <Route path="resend" element={<ResendEmailTokenPage />} />
           <Route path="reset_password_request" element={<PasswordResetRequestPage />} />
           <Route path="auth/reset_password" element={<PasswordResetPage />} />
+          {/* Private Routes - User*/}
+          <Route element={<AuthRequired allowedRoles={[ROLES.User]} />}>
+            <Route path="dashboard" element={<DashboardPage />} />
+          </Route>
+          {/* Private Routes - Admin*/}
+          <Route element={<AuthRequired allowedRoles={[ROLES.Admin]} />}>
+            <Route path="users" element={<UserListPage />} />
+          </Route>
+
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

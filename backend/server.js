@@ -10,6 +10,8 @@ import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import { apiLimiter } from './middleware/apiLimiter.js';
+import passport from 'passport';
+import googleAuth from './config/passportSetup.js';
 
 const startServer = async () => {
   await connectionToDB();
@@ -22,9 +24,12 @@ const startServer = async () => {
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
+  app.use(passport.initialize());
   app.use(cookieParser());
   app.use(mongoSanitize());
   app.use(morganMiddleware);
+
+  googleAuth();
 
   app.get('/api/v1/test', (req, res) => {
     res.json({ hi: 'welcome to invoice app' });
