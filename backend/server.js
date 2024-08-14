@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import path from 'path';
 import cookieParser from 'cookie-parser';
 import 'dotenv/config';
 import express from 'express';
@@ -7,18 +8,23 @@ import connectionToDB from './config/connectDB.js';
 import { morganMiddleware, systemLogs } from './utils/Logger.js';
 import mongoSanitize from 'express-mongo-sanitize';
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
+import { apiLimiter } from './middleware/apiLimiter.js';
+import passport from 'passport';
+import googleAuth from './config/passportSetup.js';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import customerRoutes from './routes/customerRoutes.js';
 import documentRoutes from './routes/documentRoutes.js';
-import { apiLimiter } from './middleware/apiLimiter.js';
-import passport from 'passport';
-import googleAuth from './config/passportSetup.js';
+import uploadRoutes from './routes/uploadRoutes.js';
 
 const startServer = async () => {
   await connectionToDB();
 
   const app = express();
+
+  const __dirname = path.resolve();
+  app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+  app.use('/docs', express.static(path.join(__dirname, '/docs')));
 
   if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
@@ -41,6 +47,7 @@ const startServer = async () => {
   app.use('/api/v1/user', apiLimiter, userRoutes);
   app.use('/api/v1/customer', apiLimiter, customerRoutes);
   app.use('/api/v1/document', apiLimiter, documentRoutes);
+  app.use('/api/v1/upload', apiLimiter, uploadRoutes);
 
   app.use(notFound);
   app.use(errorHandler);
