@@ -22,6 +22,8 @@ import AuthRequired from "./components/AuthRequired.tsx"
 import { ROLES } from "./config/roles.ts"
 import DashboardPage from "./pages/DashboardPage.tsx"
 import UserListPage from "./features/users/pages/UserListPage.tsx"
+import ProfilePage from "./features/users/pages/ProfilePage.tsx"
+import EditProfileForm from "./features/users/pages/EditProfileForm.tsx"
 
 function App() {
   useTitle("MERN Invoice - Home")
@@ -42,6 +44,8 @@ function App() {
           {/* Private Routes - User*/}
           <Route element={<AuthRequired allowedRoles={[ROLES.User]} />}>
             <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="edit-profile" element={<EditProfileForm />} />
           </Route>
           {/* Private Routes - Admin*/}
           <Route element={<AuthRequired allowedRoles={[ROLES.Admin]} />}>

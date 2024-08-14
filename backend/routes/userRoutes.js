@@ -13,7 +13,7 @@ const router = express.Router();
 router
   .route('/profile')
   .get(checkAuth, getUserProfile)
-  .put(checkAuth, updateUserProfile)
+  .patch(checkAuth, updateUserProfile)
   .delete(checkAuth, deleteMyAccount);
 
 // ADMIN ONLY

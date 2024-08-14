@@ -5,7 +5,7 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
     getAllUsers: builder.query({
       query: () => ({
         url: 'user/all',
-        validateStatus: (response, result) => {
+        validateStatus: (response: { status: number; }, result: { isError: any; }) => {
           return response.status === 200 && !result.isError;
         }
       }),
@@ -17,25 +17,47 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
           ]
         : [{tpye: "User", id: "LIST"}]
     }),
+    getUserProfile: builder.query<void, void>({
+		query: () => "/user/profile",
+		providesTags: [{ type: "User", id: "SINGLE_USER" }],
+	}),
+    updateUserProfile: builder.mutation({
+		query: (profileData) => ({
+			url: "/user/profile",
+			method: "PATCH",
+			body: profileData,
+		}),
+		invalidatesTags: [{ type: "User", id: "SINGLE_USER" }],
+	}),
+    deleteMyAccount: builder.mutation<void, void>({
+		query: () => ({
+			url: "user/profile",
+			method: "DELETE",
+		}),
+		invalidatesTags: [{ type: "User", id: "LIST" }],
+	}),
     deleteUser: builder.mutation({
-			query: (id) => ({
-				url: `/user/${id}`,
-				method: "DELETE",
-			}),
-			invalidatesTags: [{ type: "User", id: "LIST" }],
+		query: (id) => ({
+			url: `/user/${id}`,
+			method: "DELETE",
 		}),
-		deactivateUser: builder.mutation({
-			query: (id) => ({
-				url: `/user/${id}/deactivate`,
-				method: "PATCH",
-			}),
-			invalidatesTags: [{ type: "User", id: "LIST" }],
+		invalidatesTags: [{ type: "User", id: "LIST" }],
+	}),
+	deactivateUser: builder.mutation({
+		query: (id) => ({
+			url: `/user/${id}/deactivate`,
+			method: "PATCH",
 		}),
+		invalidatesTags: [{ type: "User", id: "LIST" }],
+	}),
   })
 });
 
 export const { 
   useGetAllUsersQuery, 
+  useUpdateUserProfileMutation,
+  useGetUserProfileQuery,
+  useDeleteMyAccountMutation,
   useDeleteUserMutation, 
   useDeactivateUserMutation 
 } = usersApiSlice;

@@ -18,7 +18,7 @@ const baseQuery = fetchBaseQuery({
   }
 });
 
-const baseQueryWithRefreshToken: BaseQueryFn<any, any, any> = async (args, api, extraOptions) => {
+const baseQueryWithRefreshToken: BaseQueryFn<any> = async (args, api, extraOptions) => {
   const response = await baseQuery(args, api, extraOptions) as any;
 
   if (response?.error?.originalStatus === 403) {

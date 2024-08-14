@@ -7,7 +7,7 @@ import User from '../../models/userModel.js';
 const updateUserProfile = asyncHandler(async (req, res) => {
   const userId = req.user._id;
 
-  const { firstName, lastName, phoneNumber } = req.body;
+  const { firstName, lastName, phoneNumber, avatar } = req.body;
 
   const user = await User.findById(userId);
 
@@ -22,6 +22,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       firstName,
       lastName,
       phoneNumber,
+      avatar,
     },
     { new: true, runValidators: true }
   ).select('-refreshToken');
