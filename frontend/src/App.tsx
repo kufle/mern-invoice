@@ -24,6 +24,10 @@ import DashboardPage from "./pages/DashboardPage.tsx"
 import UserListPage from "./features/users/pages/UserListPage.tsx"
 import ProfilePage from "./features/users/pages/ProfilePage.tsx"
 import EditProfileForm from "./features/users/pages/EditProfileForm.tsx"
+import CustomersPage from "./features/customers/pages/CustomersPage.tsx"
+import CustomerCreateForm from "./features/customers/pages/CustomerCreateForm.tsx"
+import SingleCustomerPage from "./features/customers/pages/SingleCustomerPage.tsx"
+import CustomerEditForm from "./features/customers/pages/CustomerEditForm.tsx"
 
 function App() {
   useTitle("MERN Invoice - Home")
@@ -46,6 +50,10 @@ function App() {
             <Route path="dashboard" element={<DashboardPage />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="edit-profile" element={<EditProfileForm />} />
+            <Route path="customers" element={<CustomersPage />} />
+            <Route path="create-customer" element={<CustomerCreateForm />} />
+            <Route path="single-customer/:custId" element={<SingleCustomerPage />} />
+            <Route path="edit-customer/:custId" element={<CustomerEditForm />} />
           </Route>
           {/* Private Routes - Admin*/}
           <Route element={<AuthRequired allowedRoles={[ROLES.Admin]} />}>

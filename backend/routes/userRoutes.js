@@ -27,6 +27,6 @@ router
 
 router
   .route('/:id/deactivate')
-  .put(checkAuth, role.checkRole(role.ROLES.Admin), deactivateUser);
+  .patch(checkAuth, role.checkRole(role.ROLES.Admin), deactivateUser);
 
 export default router;
