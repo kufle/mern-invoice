@@ -58,7 +58,7 @@ function CustomersPage() {
 	const emptyRows =
   page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows?.length) : 0;
 
-  const handleChangePage = (event: any, newPage: any) => {
+  const handleChangePage = (_event: any, newPage: any) => {
     setPage(newPage);
   };
 

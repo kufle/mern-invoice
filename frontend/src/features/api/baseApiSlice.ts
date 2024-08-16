@@ -42,5 +42,5 @@ export const baseApiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithRefreshToken,
   tagTypes: ["User", "Customer", "Document"],
-  endpoints: (builder) => ({})
+  endpoints: (_builder) => ({})
 })

@@ -22,7 +22,7 @@ export const authApiSlice = baseApiSlice.injectEndpoints({
         url: '/auth/logout',
         method: 'POST',
       }),
-      async onQueryStarted(arg, {dispatch, queryFulfilled}) {
+      async onQueryStarted(_arg, {dispatch}) {
         try {
           dispatch(logOut())
           dispatch(baseApiSlice.util.resetApiState());
